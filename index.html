@@ -46,9 +46,9 @@
   // Check if there's an existing list of available numbers in localStorage
   let availableNumbers = JSON.parse(localStorage.getItem('availableNumbers'));
 
-  // If no data in localStorage, initialize the array with numbers 1-10
+  // If no data in localStorage, initialize the array with numbers 1-11
   if (!availableNumbers) {
-    availableNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    availableNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11];
   }
 
   const numberDiv = document.getElementById('number');
