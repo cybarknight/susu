@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Susu Group Random Number Picker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    #number {
+      font-size: 2em;
+      margin: 20px 0;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
+    #message {
+      margin-top: 20px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+<h1>Susu Group Random Number Picker</h1>
+<p>Click the button to get your number!</p>
+<P>Don't forget to screen shot your Number</P>
+
+<div id="number"></div>
+<button id="pickNumber">Pick a Number</button>
+<div id="message"></div>
+
+<script>
+  // Check if there's an existing list of available numbers in localStorage
+  let availableNumbers = JSON.parse(localStorage.getItem('availableNumbers'));
+
+  // If no data in localStorage, initialize the array with numbers 1-10
+  if (!availableNumbers) {
+    availableNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  }
+
+  const numberDiv = document.getElementById('number');
+  const button = document.getElementById('pickNumber');
+  const messageDiv = document.getElementById('message');
+
+  // Button click event listener
+  button.addEventListener('click', () => {
+    if (availableNumbers.length === 0) {
+      messageDiv.textContent = "All numbers have been picked!";
+      button.disabled = true;  // Disable the button after all numbers are picked
+      return;
+    }
+
+    // Generate a random number from the available numbers
+    const randomIndex = Math.floor(Math.random() * availableNumbers.length);
+    const pickedNumber = availableNumbers[randomIndex];
+
+    // Display the picked number
+    numberDiv.textContent = `Your number is: ${pickedNumber}`;
+
+    // Remove the number from the available list
+    availableNumbers.splice(randomIndex, 1);
+
+    // Save the updated available numbers to localStorage
+    localStorage.setItem('availableNumbers', JSON.stringify(availableNumbers));
+
+    // Hide the button after it's clicked
+    button.style.display = 'none';  // This hides the button once clicked
+  });
+</script>
+</body>
+</html>
